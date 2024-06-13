@@ -20,16 +20,6 @@ ratings <- read.csv("https://github.com/zygmuntz/goodbooks-10k/raw/master/rating
 tags <- read.csv("https://github.com/zygmuntz/goodbooks-10k/raw/master/tags.csv")
 to_read <- read.csv("https://github.com/zygmuntz/goodbooks-10k/raw/master/to_read.csv")
 
-# data cleaning
-ratings <- data.table(ratings)
-ratings[, N := .N, .(user_id, book_id)]
-cat("Number of duplicate ratings: ", nrow(ratings[N > 1]))
-ratings <- ratings[N == 1]
-
-ratings[, N := .N, .(user_id)]
-cat("Number of users who rated fewer than 3 books: ", uniqueN(ratings[N <= 2, user_id]))
-ratings <- ratings[N > 2]
-
 # 20% at random
 # set.seed(1)
 # user_fraction <- 0.2
@@ -41,39 +31,45 @@ ratings <- ratings[N > 2]
 # cat('Number of ratings (after): ', nrow(ratings))
 
 # [F] Distribution of ratings
-ratings %>%
+plot1 <- ratings %>%
     ggplot(aes(x = rating, fill = factor(rating))) +
     geom_bar(color = "grey20") +
     scale_fill_brewer(palette = "YlGnBu") +
     guides(fill = FALSE)
+ggsave("./plots/rating_distribution.png", plot1)
 
 # [F] number of ratings per user
 # Group and count users with the same number of ratings
 user_rating_counts <- ratings %>%
-  group_by(user_id) %>%
-  summarize(number_of_ratings = n()) %>%
-  ungroup() %>%
-  count(number_of_ratings)
+    group_by(user_id) %>%
+    summarize(number_of_ratings = n()) %>%
+    ungroup() %>%
+    count(number_of_ratings)
 
 # Rename the columns for clarity
 colnames(user_rating_counts) <- c("Number_of_Ratings", "Number_of_Users")
 
 # Create the plot
-ggplot(user_rating_counts, aes(x = Number_of_Ratings, y = Number_of_Users)) +
-  geom_bar(stat = "identity", fill = "cadetblue3", color = "grey20") +
-  labs(
-    title = "Number of Ratings per User",
-    x = "Number of Ratings",
-    y = "Number of Users"
-  ) +
-  theme_minimal() +
-  theme(
-    plot.title = element_text(hjust = 0.5),
-    axis.title.x = element_text(size = 12),
-    axis.title.y = element_text(size = 12)
-  )
+plot2 <- ggplot(user_rating_counts, aes(x = Number_of_Ratings, y = Number_of_Users)) +
+    geom_bar(stat = "identity", fill = "cadetblue3", color = "grey20") +
+    labs(
+        title = "Number of Ratings per User",
+        x = "Number of Ratings",
+        y = "Number of Users"
+    ) +
+    theme_bw() +
+    theme(
+        plot.title = element_text(hjust = 0.5),
+        axis.title.x = element_text(size = 12),
+        axis.title.y = element_text(size = 12)
+    )
+ggsave("./plots/number_of_ratings_distribution.png", plot2)
 
 # [F] distribution of mean user ratings
+ratings %>% 
+  group_by(book_id) %>% 
+  summarize(mean_book_rating = mean(rating)) %>% 
+  ggplot(aes(mean_book_rating)) + geom_histogram(fill = "orange", color = "grey20") + coord_cartesian(c(1,5))
 
 # [F] number of ratings per book
 
