@@ -66,12 +66,30 @@ plot2 <- ggplot(user_rating_counts, aes(x = Number_of_Ratings, y = Number_of_Use
 ggsave("./plots/number_of_ratings_distribution.png", plot2)
 
 # [F] distribution of mean user ratings
-ratings %>% 
+# Group by user_id and calculate mean rating
+mean_user_ratings <- ratings %>%
+    group_by(user_id) %>%
+    summarize(mean_rating = mean(rating)) %>%
+    ungroup()
+
+# Rename the columns for clarity
+colnames(mean_user_ratings) <- c("User_ID", "Mean_Rating")
+
+# Create the plot
+plot3 <- ratings %>% 
   group_by(book_id) %>% 
   summarize(mean_book_rating = mean(rating)) %>% 
   ggplot(aes(mean_book_rating)) + geom_histogram(fill = "orange", color = "grey20") + coord_cartesian(c(1,5))
 
+ggsave("./plots/mean_user_ratings_distribution.png", plot3)
+
 # [F] number of ratings per book
+plot4 <- ratings %>% 
+  group_by(book_id) %>% 
+  summarize(number_of_ratings_per_book = n()) %>% 
+  ggplot(aes(number_of_ratings_per_book)) + 
+  geom_bar(fill = "orange", color = "grey20", width = 1) + coord_cartesian(c(0,40))
+
 
 # [F] distribution of mean book ratings
 
