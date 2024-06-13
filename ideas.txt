@@ -1,0 +1,1 @@
+analyze the user with less nodes to travel the whole graph of books
