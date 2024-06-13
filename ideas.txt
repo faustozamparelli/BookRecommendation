@@ -1,1 +1,3 @@
-analyze the user with less nodes to travel the whole graph of books
+CLOSENESS: analyze the user with less nodes to travel the whole graph of books
+BETWEENESS: analyze what is the book that is the link to other genre
+PAGE-RANK: [expand the dataset]
