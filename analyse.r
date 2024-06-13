@@ -11,8 +11,8 @@ books <- data.table(read.csv(
   "https://github.com/zygmuntz/goodbooks-10k/raw/master/books.csv"
 ))
 ratings <- data.table(read.csv(
-  # "https://github.com/zygmuntz/goodbooks-10k/raw/master/ratings.csv"
-  "~/Developer/StartupAnalysis/ratings.csv"
+  "https://github.com/zygmuntz/goodbooks-10k/raw/master/ratings.csv"
+  # "~/Developer/StartupAnalysis/ratings.csv"
 ))
 tags <- data.table(read.csv(
   "https://github.com/zygmuntz/goodbooks-10k/raw/master/tags.csv"
@@ -37,34 +37,37 @@ head(augmented_ratings)
 # length of ratings
 nrow(ratings)
 
-# distribution of the ratings
+# === distribution of the ratings
 table(ratings$rating) / nrow(ratings)
 
-# top 10 with highest average rating
 
-# what influences a book's rating?
-# 1. Relationship between rating and number of ratings
-head(ratings)
-cor(ratings$rating, ratings$rating_count)
+# === relationship between rating and number of ratings
 
-# 2. Relationship between rating and average rating of the author's other books
-author_avg_rating <- aggregate(rating ~ author, data = ratings, FUN = mean)
-cor(ratings$rating, author_avg_rating$rating)
+# new table with book_id, rating_avg, and rating_count
+book_ratings <- aggregate(rating ~ book_id, data = ratings, FUN = mean)
+book_ratings$count <- aggregate(rating ~ book_id,
+  data = ratings, FUN = length
+)$rating
 
-# 3. Relationship between rating and book length (number of pages)
-cor(ratings$rating, books$num_pages)
+head(book_ratings)
+book_ratings
 
-# 4. Relationship between rating and book publication year
-cor(ratings$rating, books$publication_year)
+cor(book_ratings$rating, book_ratings$count)
 
-# 5. Relationship between rating and book genre
-genre_ratings <- merge(ratings, book_tags, by = "book_id")
-genre_avg_rating <- aggregate(rating ~ tag_name, data = genre_ratings, FUN = mean)
-cor(ratings$rating, genre_avg_rating$rating)
+# relationship between rating and average rating of the author's other books
+
+# relationship between rating and book length (number of pages)
+
+# relationship between rating and book publication year
+
+# relationship between rating and book genre
+
+# === top 10 with highest average rating
 
 # is there correlation between average rating and number of ratings?
 
-# do frequet raters rate differently?
+
+# do frequent raters rate differently?
 
 # how long should a title be?
 
