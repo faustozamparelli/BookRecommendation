@@ -12,7 +12,7 @@ books <- data.table(read.csv(
 ))
 ratings <- data.table(read.csv(
   "https://github.com/zygmuntz/goodbooks-10k/raw/master/ratings.csv"
-  # "~/Developer/StartupAnalysis/ratings.csv"
+  # "~/Developer/BookRecommendation/ratings.csv"
 ))
 tags <- data.table(read.csv(
   "https://github.com/zygmuntz/goodbooks-10k/raw/master/tags.csv"
