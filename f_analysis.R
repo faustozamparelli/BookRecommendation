@@ -13,12 +13,12 @@ library(qgraph)
 library(methods)
 library(Matrix)
 
-# sample
-book_tags <- read.csv("https://github.com/zygmuntz/goodbooks-10k/raw/master/samples/book_tags.csv")
-books <- read.csv("https://github.com/zygmuntz/goodbooks-10k/raw/master/samples/books.csv")
-ratings <- read.csv("https://github.com/zygmuntz/goodbooks-10k/raw/master/samples/ratings.csv")
-tags = read.csv("https://github.com/zygmuntz/goodbooks-10k/raw/master/samples/tags.csv")
-to_read <- read.csv("https://github.com/zygmuntz/goodbooks-10k/raw/master/samples/to_read.csv")
+# dataset
+book_tags <- read.csv("https://github.com/zygmuntz/goodbooks-10k/raw/master/book_tags.csv")
+books <- read.csv("https://github.com/zygmuntz/goodbooks-10k/raw/master/books.csv")
+ratings <- read.csv("https://github.com/zygmuntz/goodbooks-10k/raw/master/ratings.csv")
+tags <- read.csv("https://github.com/zygmuntz/goodbooks-10k/raw/master/tags.csv")
+to_read <- read.csv("https://github.com/zygmuntz/goodbooks-10k/raw/master/to_read.csv")
 
 # data cleaning
 ratings <- data.table(ratings)
@@ -40,25 +40,31 @@ ratings <- ratings[N > 2]
 # ratings <- ratings[user_id %in% sample_users]
 # cat('Number of ratings (after): ', nrow(ratings))
 
-# Distribution of ratings
+# [F] Distribution of ratings
 ratings %>%
-  ggplot(aes(x = rating, fill = factor(rating))) +
-  geom_bar(color = "grey20") +
-  scale_fill_brewer(palette = "YlGnBu") +
-  guides(fill = FALSE)
+    ggplot(aes(x = rating, fill = factor(rating))) +
+    geom_bar(color = "grey20") +
+    scale_fill_brewer(palette = "YlGnBu") +
+    guides(fill = FALSE)
 
-# Number of ratings per user showing the precise number of ratings on the y and on the x number of users for that bar
-ratings_per_user <- ratings %>%
+# [F] number of ratings per user
+# Group and count users with the same number of ratings
+user_rating_counts <- ratings %>%
   group_by(user_id) %>%
-  summarize(number_of_ratings = n())
+  summarize(number_of_ratings = n()) %>%
+  ungroup() %>%
+  count(number_of_ratings)
+
+# Rename the columns for clarity
+colnames(user_rating_counts) <- c("Number_of_Ratings", "Number_of_Users")
 
 # Create the plot
-ggplot(ratings_per_user, aes(x = user_id, y = number_of_ratings)) +
+ggplot(user_rating_counts, aes(x = Number_of_Ratings, y = Number_of_Users)) +
   geom_bar(stat = "identity", fill = "cadetblue3", color = "grey20") +
   labs(
     title = "Number of Ratings per User",
-    x = "User ID",
-    y = "Number of Ratings"
+    x = "Number of Ratings",
+    y = "Number of Users"
   ) +
   theme_minimal() +
   theme(
@@ -66,9 +72,6 @@ ggplot(ratings_per_user, aes(x = user_id, y = number_of_ratings)) +
     axis.title.x = element_text(size = 12),
     axis.title.y = element_text(size = 12)
   )
-
-
-# [F] number of ratings per user
 
 # [F] distribution of mean user ratings
 
