@@ -23,11 +23,11 @@ to_read <- read.csv("https://github.com/zygmuntz/goodbooks-10k/raw/master/sample
 # data cleaning
 ratings <- data.table(ratings)
 ratings[, N := .N, .(user_id, book_id)]
-cat('Number of duplicate ratings: ', nrow(ratings[N > 1]))
+cat("Number of duplicate ratings: ", nrow(ratings[N > 1]))
 ratings <- ratings[N == 1]
 
 ratings[, N := .N, .(user_id)]
-cat('Number of users who rated fewer than 3 books: ', uniqueN(ratings[N <= 2, user_id]))
+cat("Number of users who rated fewer than 3 books: ", uniqueN(ratings[N <= 2, user_id]))
 ratings <- ratings[N > 2]
 
 # 20% at random
@@ -41,10 +41,12 @@ ratings <- ratings[N > 2]
 # cat('Number of ratings (after): ', nrow(ratings))
 
 # Distribution of ratings
-ratings %>% 
+ratings %>%
   ggplot(aes(x = rating, fill = factor(rating))) +
-  geom_bar(color = "grey20") + scale_fill_brewer(palette = "YlGnBu") + guides(fill = FALSE)
-  
+  geom_bar(color = "grey20") +
+  scale_fill_brewer(palette = "YlGnBu") +
+  guides(fill = FALSE)
+
 # Number of ratings per user showing the precise number of ratings on the y and on the x number of users for that bar
 ratings_per_user <- ratings %>%
   group_by(user_id) %>%
@@ -64,3 +66,16 @@ ggplot(ratings_per_user, aes(x = user_id, y = number_of_ratings)) +
     axis.title.x = element_text(size = 12),
     axis.title.y = element_text(size = 12)
   )
+
+
+# [F] number of ratings per user
+
+# [F] distribution of mean user ratings
+
+# [F] number of ratings per book
+
+# [F] distribution of mean book ratings
+
+# [F] number of ratings per book
+
+# [F] top 10 books with most ratings

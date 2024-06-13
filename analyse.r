@@ -34,18 +34,6 @@ nrow(ratings)
 # distribution of the ratings
 table(ratings$rating) / nrow(ratings)
 
-# number of ratings per user
-
-# distribution of mean user ratings
-
-# number of ratings per book
-
-# distribution of mean book ratings
-
-# number of ratings per book
-
-# top 10 books with most ratings
-
 # top 10 with highest average rating
 
 # what influences a book's rating?
