@@ -76,21 +76,40 @@ mean_user_ratings <- ratings %>%
 colnames(mean_user_ratings) <- c("User_ID", "Mean_Rating")
 
 # Create the plot
-plot3 <- ratings %>% 
-  group_by(book_id) %>% 
-  summarize(mean_book_rating = mean(rating)) %>% 
-  ggplot(aes(mean_book_rating)) + geom_histogram(fill = "orange", color = "grey20") + coord_cartesian(c(1,5))
+plot3 <- ratings %>%
+    group_by(book_id) %>%
+    summarize(mean_book_rating = mean(rating)) %>%
+    ggplot(aes(mean_book_rating)) +
+    geom_histogram(fill = "orange", color = "grey20") +
+    coord_cartesian(c(1, 5))
 
 ggsave("./plots/mean_user_ratings_distribution.png", plot3)
 
 # [F] number of ratings per book
-plot4 <- ratings %>% 
-  group_by(book_id) %>% 
-  summarize(number_of_ratings_per_book = n()) %>% 
-  ggplot(aes(number_of_ratings_per_book)) + 
-  geom_bar(fill = "orange", color = "grey20", width = 1) + coord_cartesian(c(0,40))
+# Group by book_id and count ratings
+book_rating_counts <- ratings %>%
+    group_by(book_id) %>%
+    summarize(number_of_ratings = n()) %>%
+    ungroup()
 
+# rename the columns for clarity
+colnames(book_rating_counts) <- c("book_id", "number_of_ratings")
 
+# create the plot
+plot4 <- ggplot(book_rating_counts, aes(x = number_of_ratings)) +
+    geom_histogram(binwidth = 0.5, fill = "cadetblue3", color = "grey20") +
+    labs(
+        title = "number of ratings per book",
+        x = "number of ratings",
+        y = "number of books"
+    ) +
+    theme_bw() +
+    theme(
+        plot.title = element_text(hjust = 0.5),
+        axis.title.x = element_text(size = 12),
+        axis.title.y = element_text(size = 12)
+    )
+ggsave("./plots/number_of_ratings_per_book_distribution.png", plot4)
 # [F] distribution of mean book ratings
 
 # [F] number of ratings per book
