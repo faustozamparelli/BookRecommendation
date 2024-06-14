@@ -275,7 +275,6 @@ books %>%
   top_n(10,wt = ratings_count) %>% 
   select(image, title, ratings_count, average_rating) %>% 
   datatable(class = "nowrap hover row-border", escape = FALSE, options = list(dom = 't',scrollX = TRUE, autoWidth = TRUE))
-
 ```
 <br>  
 
