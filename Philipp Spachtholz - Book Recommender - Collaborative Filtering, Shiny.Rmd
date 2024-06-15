@@ -481,7 +481,7 @@ ratingmat[1:5, 1:5]
 dim(ratingmat)
 ```
 
-We see that our rating matrix has 9003 rows x 9999 columns, which is a lot of matrix elements. 
+We see that our rating matrix has 900 ro3ws x 9999 columns, which is a lot of matrix elements. 
 Ok, now we have the data. 
 
 It's time to go through our 3 steps:
@@ -1092,4 +1092,3 @@ And if you need to know which book to read next, you know where to go :-):
 The source code for the shiny app can be found on my **[Github](https://github.com/pspachtholz/BookRecommender)**.
 
 If you found this kernel interesting you can make me happy by **upvoting** it. 
-
