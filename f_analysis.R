@@ -120,11 +120,11 @@ p2 <- books %>%
 plot5 <- grid.arrange(p1, p2, ncol = 2)
 ggsave("./plots/language_distribution.png", plot5)
 ################################################################################
-# [F] top 10 books with most ratings
+# [F] top 20 books with most ratings
 books %>%
   mutate(image = paste0('<img src="', small_image_url, '"></img>')) %>%
   arrange(-ratings_count) %>%
-  top_n(10, wt = ratings_count) %>%
+  top_n(20, wt = ratings_count) %>%
   select(image, title, ratings_count, average_rating) %>%
   datatable(class = "nowrap hover row-border", escape = FALSE, options = list(dom = "t", scrollX = TRUE, autoWidth = TRUE))
 ################################################################################
