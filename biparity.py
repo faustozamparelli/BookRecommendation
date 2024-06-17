@@ -13,8 +13,8 @@ books = pd.read_csv("https://github.com/zygmuntz/goodbooks-10k/raw/master/books.
 # Load the ratings dataset
 ratings = pd.read_csv("https://github.com/zygmuntz/goodbooks-10k/raw/master/ratings.csv")
 
-# sample of 0.1% of the ratings dataset
-ratings = ratings.sample(frac=0.001)
+# sample of 0.01% of the ratings dataset
+ratings = ratings.sample(frac=0.0001)
 
 print(len(ratings))
 
@@ -45,13 +45,13 @@ pos = nx.spring_layout(G)  # positions for all nodes - seed for reproducibility
 
 colors = [node[1]["color"] if 'color' in node[1] else 'blue' for node in G.nodes(data=True)]
 # nodes
-nx.draw_networkx_nodes(G, pos, node_size=700, node_color=colors)
+nx.draw_networkx_nodes(G, pos, node_size=80, node_color=colors)
 
 # edges
-nx.draw_networkx_edges(G, pos, edgelist=edge_list, width=4)
+nx.draw_networkx_edges(G, pos, edgelist=edge_list, width=8)
 
 # node labels
-nx.draw_networkx_labels(G, pos, font_size=13, font_family="sans-serif")
+nx.draw_networkx_labels(G, pos, font_size=5, font_family="sans-serif")
 
 # edge weight labels
 edge_labels = nx.get_edge_attributes(G, "weight")

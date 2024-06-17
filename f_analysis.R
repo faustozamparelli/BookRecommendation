@@ -67,15 +67,46 @@ sd_ratings <- sd(ratings_summary$number_of_ratings_per_book)
 plot4 <- ratings_summary %>%
   ggplot(aes(number_of_ratings_per_book)) +
   geom_bar(fill = "orange", color = "orange", width = 0.02) +
+  geom_vline(aes(xintercept = mean_ratings, y = Inf, label= "x̄"), color = "blue", linetype = "dashed") +
+  geom_vline(aes(xintercept = median_ratings), color = "green", linetype = "dashed") +
+  geom_vline(aes(xintercept = mean_ratings + sd_ratings), color = "red", linetype = "dashed") +
+  geom_text(aes(x = mean_ratings + sd_ratings, y = Inf, label = "+1"), vjust = 1.5, color = "red") +
+  geom_vline(aes(xintercept = mean_ratings + 2*sd_ratings), color = "red", linetype = "dashed") +
+  geom_text(aes(x = mean_ratings + 2*sd_ratings, y = Inf, label = "+2"), vjust = 1.5, color = "red") +
+  geom_vline(aes(xintercept = mean_ratings + 3*sd_ratings), color = "red", linetype = "dashed") +
+  geom_text(aes(x = mean_ratings + 3*sd_ratings, y = Inf, label = "+3"), vjust = 1.5, color = "red") +
+  ylab("count")
+ggsave("./plots/number_of_ratings_per_book.png", plot4)
+
+plot5 <- ratings_summary %>%
+  ggplot(aes(number_of_ratings_per_book)) +
+  geom_bar(fill = "orange", color = "orange", width = 0.02) +
   geom_vline(aes(xintercept = mean_ratings), color = "blue", linetype = "dashed") +
   geom_vline(aes(xintercept = median_ratings), color = "green", linetype = "dashed") +
   geom_vline(aes(xintercept = mean_ratings + sd_ratings), color = "red", linetype = "dashed") +
-  geom_vline(aes(xintercept = mean_ratings - sd_ratings), color = "red", linetype = "dashed") +
-  geom_text(aes(x = mean_ratings, y = Inf, label = "Mean"), vjust = 2, color = "blue") +
-  geom_text(aes(x = median_ratings, y = Inf, label = "Median"), vjust = 2, color = "green") +
-  geom_text(aes(x = mean_ratings + sd_ratings, y = Inf, label = "1 SD Above Mean"), vjust = 2, color = "red") +
-  geom_text(aes(x = mean_ratings - sd_ratings, y = Inf, label = "1 SD Below Mean"), vjust = 2, color = "red")
-ggsave("./plots/number_of_ratings_per_book.png", plot4)
+  geom_text(aes(x = mean_ratings + sd_ratings, y = Inf, label = "+1"), vjust = 1.5, color = "red") +
+  geom_vline(aes(xintercept = mean_ratings + 2*sd_ratings), color = "red", linetype = "dashed") +
+  geom_text(aes(x = mean_ratings + 2*sd_ratings, y = Inf, label = "+2"), vjust = 1.5, color = "red") +
+  geom_vline(aes(xintercept = mean_ratings + 3*sd_ratings), color = "red", linetype = "dashed") +
+  geom_text(aes(x = mean_ratings + 3*sd_ratings, y = Inf, label = "+3"), vjust = 1.5, color = "red") +
+  coord_cartesian(xlim = c(0, 5000)) +
+  ylab("count")
+ggsave("./plots/number_of_ratings_per_book2.png", plot5)
+
+plot6 <- ratings_summary %>%
+  ggplot(aes(number_of_ratings_per_book)) +
+  geom_bar(fill = "orange", color = "orange", width = 0.02) +
+  geom_vline(aes(xintercept = mean_ratings), color = "blue", linetype = "dashed") +
+  geom_vline(aes(xintercept = median_ratings), color = "green", linetype = "dashed") +
+  geom_vline(aes(xintercept = mean_ratings + sd_ratings), color = "red", linetype = "dashed") +
+  geom_text(aes(x = mean_ratings + sd_ratings, y = Inf, label = "+1"), vjust = 1.5, color = "red") +
+  geom_vline(aes(xintercept = mean_ratings + 2*sd_ratings), color = "red", linetype = "dashed") +
+  geom_text(aes(x = mean_ratings + 2*sd_ratings, y = Inf, label = "+2"), vjust = 1.5, color = "red") +
+  geom_vline(aes(xintercept = mean_ratings + 3*sd_ratings), color = "red", linetype = "dashed") +
+  geom_text(aes(x = mean_ratings + 3*sd_ratings, y = Inf, label = "+3"), vjust = 1.5, color = "red") +
+  coord_cartesian(xlim = c(0, 700)) +
+  ylab("count")
+ggsave("./plots/number_of_ratings_per_book3.png", plot6)
 
 # Repeat the same for plot5 and plot6
 ###############################################################################
