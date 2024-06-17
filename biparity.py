@@ -11,13 +11,15 @@ DISABLE_HARRY_POTTER_FILTER = True
 
 # Load the books dataset
 books = pd.read_csv(
-    "/Users/danielfalbo/Developer/acsais-fav-books/public/data/books.csv"
+    # "/Users/danielfalbo/Developer/acsais-fav-books/public/data/books.csv"
+    "https://github.com/zygmuntz/goodbooks-10k/raw/master/book_tags.csv"
 )
 print("loaded books")
 
 # Load the ratings dataset
 ratings = pd.read_csv(
-    "/Users/danielfalbo/Developer/acsais-fav-books/public/data/ratings.csv"
+    # "/Users/danielfalbo/Developer/acsais-fav-books/public/data/ratings.csv"
+    "https://github.com/zygmuntz/goodbooks-10k/raw/master/ratings.csv"
 )
 print("loaded ratings")
 
@@ -31,7 +33,7 @@ ratings = ratings.head(1000)
 print(len(ratings))
 
 # Remove multiple columns
-books_ids = books.drop(
+books = books.drop(
     [
         "goodreads_book_id",
         "best_book_id",
