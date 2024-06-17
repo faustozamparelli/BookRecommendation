@@ -56,22 +56,28 @@ plot3 <- ratings %>%
 ggsave("./plots/mean_user_ratings_distribution.png", plot3)
 #################################################################################
 # [F] number of ratings per book
-# Group by book_id and count ratings
-plot4 <- ratings %>%
+ratings_summary <- ratings %>%
   group_by(book_id) %>%
-  summarize(number_of_ratings_per_book = n()) %>%
+  summarize(number_of_ratings_per_book = n())
+
+mean_ratings <- mean(ratings_summary$number_of_ratings_per_book)
+median_ratings <- median(ratings_summary$number_of_ratings_per_book)
+sd_ratings <- sd(ratings_summary$number_of_ratings_per_book)
+
+plot4 <- ratings_summary %>%
   ggplot(aes(number_of_ratings_per_book)) +
-  geom_bar(fill = "orange", color = "grey20", width = 1)
+  geom_bar(fill = "orange", color = "orange", width = 0.02) +
+  geom_vline(aes(xintercept = mean_ratings), color = "blue", linetype = "dashed") +
+  geom_vline(aes(xintercept = median_ratings), color = "green", linetype = "dashed") +
+  geom_vline(aes(xintercept = mean_ratings + sd_ratings), color = "red", linetype = "dashed") +
+  geom_vline(aes(xintercept = mean_ratings - sd_ratings), color = "red", linetype = "dashed") +
+  geom_text(aes(x = mean_ratings, y = Inf, label = "Mean"), vjust = 2, color = "blue") +
+  geom_text(aes(x = median_ratings, y = Inf, label = "Median"), vjust = 2, color = "green") +
+  geom_text(aes(x = mean_ratings + sd_ratings, y = Inf, label = "1 SD Above Mean"), vjust = 2, color = "red") +
+  geom_text(aes(x = mean_ratings - sd_ratings, y = Inf, label = "1 SD Below Mean"), vjust = 2, color = "red")
 ggsave("./plots/number_of_ratings_per_book.png", plot4)
-#################################################################################
-# [F] distribution of mean book ratings
-plot5 <- ratings %>%
-  group_by(book_id) %>%
-  summarize(mean_book_rating = mean(rating)) %>%
-  ggplot(aes(mean_book_rating)) +
-  geom_histogram(fill = "orange", color = "grey20") +
-  coord_cartesian(c(1, 5))
-ggsave("./plots/mean_book_ratings_distribution.png", plot5)
+
+# Repeat the same for plot5 and plot6
 ###############################################################################
 # [F] genres distribution
 genres <- str_to_lower(c("Art", "Biography", "Business", "Chick Lit", "Children's", "Christian", "Classics", "Comics", "Contemporary", "Cookbooks", "Crime", "Ebooks", "Fantasy", "Fiction", "Gay and Lesbian", "Graphic Novels", "Historical Fiction", "History", "Horror", "Humor and Comedy", "Manga", "Memoir", "Music", "Mystery", "Nonfiction", "Paranormal", "Philosophy", "Poetry", "Psychology", "Religion", "Romance", "Science", "Science Fiction", "Self Help", "Suspense", "Spirituality", "Sports", "Thriller", "Travel", "Young Adult"))
