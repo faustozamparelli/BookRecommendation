@@ -1,0 +1,41 @@
+goodbooks: 10k books, 980k ratings, 53,424 users
+
+1. Top 10 books
+2. Top 10 rated books
+3. Distribution of generes:
+Extracting the genres of the books is not trivial since users assign self-chosen tags to books, which may or may not be the same as genres defined by goodreads. As a pragmatic way I chose only the tags the match those provided by goodbooks. This could be improved by grouping similar tags together (like 'self-help', 'self help' etc. to 'Self Help'). But I think my approach is fine for a first glance.
+We see that most books are "Fantasy", "Romance", or "Mistery" books, while there are not very many "Cookbooks" in the database.
+
+We can see that the most reccomended books are fantasy and also the most loved ones (Harry Potter), fiction beats non fiction by a long shot even in the books market
+4. Languages:
+This is interesting because goodreads is an english speaking site. However, the dataset contains some books in different languages. The reason is that typically there are multiple editions of a book (both in the same language and in different languages). For this dataset it seems that the most popular edition was included, which for some books is their original language. 
+7. Number of ratings per user:
+every user has at least three ratings from data filtering but it is nice to see that the average user had about 120 ratings in total while there are users that get up to 200. the distribution seems to be pretty well spread and can be aproximeted by a normal distribution.
+5. Distribution of ratings:
+6. Distribution of mean user ratings: skewed to the left but we can see that the peak is at 3.8, there are not so may people voting 4 and even having 5 as the mean in contrast with the previous  plots
+8. Number of ratings per book: green median (220), blue mean (600) [skewed to the right], a lot of outliers (after 4400) but number of ratings go up to 2250
+9. Correlations:
+Books count: editions, reprints
+Original Publication Year: how old is it
+Ratings count:  number of ratings
+Work ratings count: journalist that rate books for work
+work text reviews count: the number of words iniside the review of journalists
+Average rating:
+10. Rel. number of ratings and the average rating:
+Theoretically, it might be that the popularity of a book (in terms of the number of ratings it receives) is associated with the average rating it receives, such that once a book is becoming popular it gets better ratings. However, our data shows that
+this is true only to a very small extent. The correlation between these variables is only 0.07. 
+11. Do frequent raters rate differently:
+It is possible, that users that rate more books (frequent raters) rate books differently from less frequent raters. There is almost no correlation a slight positive one (users that read more then to start enjoying books more)
+12. Multiple editions of each book:
+The dataset contains information about how many editions of a book are available in `book_count`. These can either be different editions in the same language or also translations of the book into different languages. So one might assume, that the better the book is the more editions should be available. In fact, data show exactly the opposite pattern (r -0.13): The more editions a book has the lower is the average rating. The causal direction of this association is of course unclear here. 
+13. Series of books:
+The data contains information in the `title` column about whether a certain book is part of a series (e.g. the Lord of the Rings trilogy).
+Given this, we can extract the series from the `title`, as it is always given in parantheses. . books which are part of a larger series receive a higher rating. In fact the more volumes are in a series, the higher the average rating is.  
+14. Is the sequel better than the original:
+using the same data we can see if the sequel is in average better, and it is
+15. How long should a title be:
+If you are an author, one of the most important choices is the title of a book. Of course the content of the title is important. However, it might also matter how long the title is. Below I therefore plot the average rating as a function of the length of the title (in words). We can see that there is in fact some variation in average rating depending on title length. Titles with 3 or 7 words seem to have slightly higher ratings. 
+16. Does having a subtititle improve book rating:
+having a subtititle improves a book rating
+17. Number of authors
+18. Network
