@@ -1,5 +1,10 @@
 # ACSAIS Favorite Books
 
+<div align="center">
+  <img src="plots/network.png" alt="Book Recommendation Network Graph" width="600">
+  <p><em>Interactive network visualization showing relationships between books and users</em></p>
+</div>
+
 A book recommendation application that allows users to vote on books, view community favorites, and get personalized recommendations. This project combines a modern Next.js frontend with Python-based data analysis and uses Supabase for data storage.
 
 ## 🚀 Features
@@ -9,6 +14,11 @@ A book recommendation application that allows users to vote on books, view commu
 - **🕸️ Recommendations**: Get personalized book recommendations based on community data
 - **📈 Data Analysis**: Python-based analytics for book trends and user preferences
 - **🎨 Modern UI**: Built with Next.js, TypeScript, and Tailwind CSS
+
+<div align="center">
+  <img src="UI.jpeg" alt="Book Recommendations Interface" width="700">
+  <p><em>Book recommendations interface showing personalized suggestions based on class votes using vector dataset matching for users with similar tastes</em></p>
+</div>
 
 ## 🛠️ Tech Stack
 
