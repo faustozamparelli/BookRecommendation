@@ -156,10 +156,6 @@ The project includes comprehensive data analysis capabilities:
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📄 License
-
-This project is part of the ACSAIS community initiative for book recommendations.
-
 ## 🔗 Links
 
 - [Next.js Documentation](https://nextjs.org/docs)
